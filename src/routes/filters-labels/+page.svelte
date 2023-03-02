@@ -1,1 +1,0 @@
-<h3>Create customized views</h3>
