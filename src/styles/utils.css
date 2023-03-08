@@ -1,0 +1,46 @@
+.flex-space-x {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+.flex-center-y {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.flex-center-x {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  gap: 0.5rem;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.btn {
+	padding: 0.5rem 1rem;
+	background-color: var(--text);
+	color: var(--bg);
+}
+
+.btn-outline {
+	padding: 0.5rem 1rem;
+  border: 1px solid var(--border-2);
+}
+
+.rounded {
+	border-radius: var(--radius);
+}
+
+.dim {
+	color: var(--text-2);
+}
+
+.link {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem; 
+}

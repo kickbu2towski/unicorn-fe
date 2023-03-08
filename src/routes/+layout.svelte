@@ -1,29 +1,11 @@
 <script lang="ts">
-	import Sidebar from '$lib/components/Sidebar.svelte';
-	import '../styles/reset.css';
-	import '../styles/global.css';
-	const projects = [
-		{ id: 1, name: 'Letterboxd', color: '#64748b' },
-		{ id: 2, name: 'The Family Man', color: '#475569' },
-		{ id: 3, name: 'Designing Data Intensive Applications', color: '#334155' }
-	];
+	import { page } from "$app/stores";
+	import { handleSession } from "@lucia-auth/sveltekit/client";
+  import '../styles/reset.css'
+  import '../styles/global.css'
+  import '../styles/utils.css'
+  
+	handleSession(page);
 </script>
 
-<div class="root">
-	<Sidebar {projects} />
-	<div class="main-content">
-		<slot />
-	</div>
-</div>
-
-<style>
-	.root {
-		display: grid;
-		grid-template-columns: minmax(280px, 25%) 1fr;
-		height: 100%;
-	}
-	.main-content {
-		display: grid;
-		place-content: center;
-	}
-</style>
+<slot />

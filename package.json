@@ -22,16 +22,28 @@
 		"lint-staged": "^13.1.2",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
+		"prisma": "^4.11.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
+		"svg-to-svelte": "^2.2.1",
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3",
 		"vite": "^4.0.0"
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth/core": "^0.5.1",
+		"@auth/sveltekit": "^0.3.0",
+		"@lucia-auth/adapter-prisma": "^0.5.1",
+		"@lucia-auth/oauth": "^0.6.2",
+		"@lucia-auth/sveltekit": "^0.6.6",
+		"@prisma/client": "^4.11.0",
 		"@rgossiaux/svelte-headlessui": "^1.0.2",
+		"@types/nodemailer": "^6.4.7",
 		"dayjs": "^2.0.0-alpha.2",
-		"svelte-popperjs": "^1.3.2"
+		"lucia-auth": "^0.7.2",
+		"nodemailer": "^6.9.1",
+		"svelte-popperjs": "^1.3.2",
+		"zod": "^3.21.4"
 	}
 }

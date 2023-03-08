@@ -1,33 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
-	--bg: #ffffff;
-	--text: #0f172a;
-	--border: #e2e8f0;
-	--border-2: #cbd5e1;
-	--hover: #f1f5f9;
-	--shadow: 0px 12px 40px rgba(1, 1, 46, 0.134), 0px 12px 20px -12px rgba(0, 8, 47, 0.275);
-
-	/* sizes */
-	--radius: 6px;
-	--radius-2: 8px;
-
-	/* colors */
-	--slate-100: #f1f5f9; 
 	--slate-400: #94a3b8;
-	--slate-500: #64748B;
-	--slate-700: #334155;
+	--font: 'Inter', sans-serif;
+	--text: #0f172a;
+	--bg: #ffffff;
+  --border: #E2E8F0;
+	--border-2: #cbd5e1;
+	--radius: 6px;
+	--text-2: #64748b;
+	--red: #ff6b6b;
 }
 
 body {
+	font-family: var(--font);
 	background-color: var(--bg);
 	color: var(--text);
-	font-family: 'Inter', sans-serif;
-}
-
-ul {
-	list-style: none;
-	padding: 0;
 }
 
 a {
@@ -35,67 +23,25 @@ a {
 	color: inherit;
 }
 
-input, .listbox-btn {
-	background: var(--bg);
-	border: 1px solid var(--border-2);
-	border-radius: 6px;
-	padding: 4px 16px;
+button {
+	background: none;
+	border: none;
+  cursor: pointer;	
 }
 
-input:focus,
-button:active,
-button:focus,
-a:focus {
-	outline: 2px solid var(--slate-400);
-	outline-offset: 2px;
+input {
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--border-2);
 }
 
 input::placeholder {
 	color: var(--slate-400);
 }
 
-button {
-	background-color: inherit;
-	border: none;
-	cursor: pointer;
-	border-radius: var(--radius);
-  color: inherit;	
-	min-width: 0px;	
+input.error {
+	border: 1px solid var(--red);
 }
 
-.btn {
-	padding: 6px 16px;
-}
-
-.btn-primary {
-	background: #0f172a;
-	color: #fff;
-}
-
-.btn-outline {
-	background: #ffffff;	
-	border: 1px solid var(--border-2);
-}
-
-.btn-primary:hover {
-	background: var(--slate-700);
-}
-
-.btn-outline:hover {
-	background: var(--slate-100);
-}
-
-.circle {
-	min-width: 10px;
-	min-height: 10px;
-	display: block;
-	border-radius: 100%;
-}
-
-.link:hover {
-	background-color: var(--hover);
-}
-
-.dim {
-	color: var(--slate-500);
+span.error {
+	color: var(--red)
 }
