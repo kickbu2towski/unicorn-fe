@@ -8,14 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String    @id @unique
-  username  String
-  email     String    @unique
-  activated Boolean   @default(false)
-  session   Session[]
-  Key       Key[]
+  id           String         @id @unique
+  username     String
+  email        String         @unique
+  activated    Boolean        @default(false)
+  session      Session[]
+  Key          Key[]
+  projects     Project[]
+  todoItems    TodoItems[]
+  todoKeywords TodoKeywords[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Session {
@@ -26,7 +29,7 @@ model Session {
   user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
-  @@map("session")
+  @@map("sessions")
 }
 
 model Key {
@@ -38,5 +41,47 @@ model Key {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
-  @@map("key")
+  @@map("keys")
 }
+
+model Project {
+  id         Int         @id @default(autoincrement())
+  name       String
+  color      String
+  user_id    String
+  user       User        @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  todo_items TodoItems[]
+
+  @@map("projects")
+}
+
+model TodoItems {
+  id         Int      @id @default(autoincrement())
+  name       String
+  content    String?
+  priority   Int       @default(2)
+  scheduled  String?
+  deadline   String?
+  user_id    String
+  user       User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  project_id Int?
+  project    Project? @relation(references: [id], fields: [project_id], onDelete: Cascade)
+
+  @@map("todo_items")
+}
+
+model TodoKeywords {
+  id            Int     @id @default(autoincrement())
+  name          String
+  fastAccessKey String
+  color         String
+  isActionable  Boolean @default(true)
+  user_id       String
+  user          User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@map("todo_keywords")
+}
+
+// * TODO Buy Milk #A :TODO:WORK
+//   SCHEDULED: <2023-03-10 09:00> DEADLINE: <2023-03-10 10:00 -- 11:00>
+//   This is the note content

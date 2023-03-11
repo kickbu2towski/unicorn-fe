@@ -1,1 +1,0 @@
-<h1>If you visit this route, you are awesome</h1>

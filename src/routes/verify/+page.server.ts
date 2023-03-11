@@ -4,7 +4,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import { LuciaError } from "lucia-auth";
 import type { Actions, PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, url }) => {
   const { user, session } = await locals.validateUser()
 
   if(!session) {
@@ -14,8 +14,12 @@ export const load: PageServerLoad = async ({ locals }) => {
   if(user?.activated) {
    throw redirect(303, '/app')
   }
+ 
+  const token = url.searchParams.get("token")
 
-  return {}
+  return {
+    token
+  }
 }
 
 export const actions: Actions = {
@@ -40,7 +44,7 @@ export const actions: Actions = {
 			})
     } catch(err) {
       if(err instanceof LuciaError) {
-       return fail(400, { invalidToken: 'Invalid or token expired' }) 
+       return fail(400, { invalidToken: 'Invalid or expired token' }) 
       }
       return fail(400)
     }

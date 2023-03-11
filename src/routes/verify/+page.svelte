@@ -1,38 +1,39 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { enhance, type SubmitFunction } from '$app/forms';
+	import SpinIcon from '$lib/icons/SpinIcon.svelte';
 	import type { ActionData, PageData } from './$types';
 	export let data: PageData;
 	export let form: ActionData;
+	
+	let showLoader = false;
+	const submitForm: SubmitFunction = () => {
+		showLoader = true;
+		return async ({ update }) => {
+			showLoader = false;
+			await update();
+		};
+	};
 </script>
 
-<div class="verify flex-center-y">
+<div class="p-4 flex flex-col justify-center items-center h-full">
 	{#if data.token}
-  <form method="POST" use:enhance>
-		<button class="btn rounded">Verify Email</button>
+  <form method="POST" use:enhance={submitForm}>
+		<button
+			class="mb-2 p-4 py-2 bg-black text-white rounded-lg w-full flex items-center justify-center gap-2 {showLoader
+				? 'cursor-not-allowed opacity-50'
+				: ''}"
+		>
+			{#if showLoader}
+				<span class="relative top-[1px]"><SpinIcon /></span>
+			{/if}
+			<span>{showLoader ? 'Verifying...' : 'Verify Email'}</span>
+		</button>
     {#if form?.invalidToken}
-      <span class="error">{form?.invalidToken}</span>
+      <span class="text-red-500">{form?.invalidToken}</span>
     {/if}
   </form>
 	{:else}
-		<h2>Verify your email address</h2>
-		<p class="dim">We have sent you an email. Check your inbox.</p>
+		<h1 class="text-2xl pb-1 font-bold">Verify your email address</h1>
+		<p class="text-slate-500">We have sent you an email. Check your inbox.</p>
 	{/if}
 </div>
-
-<style>
-	.verify {
-		height: 100%;
-		text-align: center;
-		padding: 1rem;
-	}
-
-	h2 {
-		padding-bottom: 0.2rem;
-	}
-
-  button {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-</style>

@@ -49,7 +49,6 @@ export const actions: Actions = {
 			await sendMail(email, token)
       locals.setSession(session)
 		} catch(err) {
-			console.log(err)
 		  if(err instanceof ZodError)	{
 				const { fieldErrors: errors } = err.flatten()
 				return fail(400, errors)

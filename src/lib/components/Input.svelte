@@ -1,16 +1,12 @@
 <script lang="ts">
-  export let error: string
+	export let error: string;
 </script>
 
-<input class="rounded {error ? 'error' : ''}"  required {...$$restProps}/>
+<input
+	required
+	{...$$restProps}
+	class="border border-slate-300 p-4 py-2 w-full rounded-lg block {error ? 'border border-slate-300-red-300' : ''}"
+/>
 {#if error}
- <span class="error">{error}</span> 
+	<span class="text-red-500 relative top-1">{error}</span>
 {/if}
-
-<style>
-  span {
-    text-align: left;
-    position: relative;
-    top: -9px;
-  }
-</style>
