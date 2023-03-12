@@ -18,7 +18,7 @@
 	};
 
 	const deleteProject = async () => {
-		await fetch(`/api/projects/${data?.project?.id}`, {
+		await fetch(`/app/projects/${data?.project?.id}`, {
 			method: 'delete'
 		});
 		await invalidateAll()

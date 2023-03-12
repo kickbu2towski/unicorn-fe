@@ -1,12 +1,15 @@
 <script lang="ts">
-	export let error: string;
+	export let error = '';
+	export let twClass = '';
 </script>
 
 <input
 	required
 	{...$$restProps}
-	class="border border-slate-300 p-4 py-2 w-full rounded-lg block {error ? 'border border-slate-300-red-300' : ''}"
+	class="block w-full rounded-lg border border-slate-300 p-4 py-2 {error
+		? 'border-slate-300-red-300 border'
+		: ''} {twClass}"
 />
 {#if error}
-	<span class="text-red-500 relative top-1">{error}</span>
+	<span class="relative top-1 text-red-500">{error}</span>
 {/if}

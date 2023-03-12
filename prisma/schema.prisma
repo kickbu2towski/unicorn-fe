@@ -73,7 +73,7 @@ model TodoItems {
 model TodoKeywords {
   id            Int     @id @default(autoincrement())
   name          String
-  fastAccessKey String
+  fastAccessKey String?
   color         String
   isActionable  Boolean @default(true)
   user_id       String

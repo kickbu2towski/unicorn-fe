@@ -1,6 +1,6 @@
 import { auth } from '$lib/server/lucia';
 import { prisma } from '$lib/server/prisma';
-import { authSchema } from '$lib/zodSchemas';
+import { AuthSchema } from '$lib/zodSchemas';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { ZodError } from 'zod'
 import { generateRandomString } from 'lucia-auth'
@@ -11,7 +11,7 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(await request.formData())	
 		
 		try {
-			const { email, password } = authSchema.parse(formData)
+			const { email, password } = AuthSchema.parse(formData)
 
       const user = await prisma.user.findUnique({ where: {
         email

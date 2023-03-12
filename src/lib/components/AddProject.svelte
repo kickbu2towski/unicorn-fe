@@ -5,7 +5,6 @@
 	import UpDownIcon from '$lib/icons/UpDownIcon.svelte';
 	import SpinIcon from '$lib/icons/SpinIcon.svelte';
 	import { createPopperActions } from 'svelte-popperjs';
-
 	import {
 		Listbox,
 		ListboxButton,
@@ -14,6 +13,7 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import { goto, invalidateAll } from '$app/navigation';
+	import { sameWidthPopperOptions } from '$lib/utils';
 
 	export let edit = false;
 	export let project: { name: string; color: string, id: number } | undefined = undefined;
@@ -24,25 +24,6 @@
 	let showLoader = false;
 
 	const [popperRef, popperContent] = createPopperActions();
-	const popperOptions = {
-		placement: 'bottom',
-		modifiers: [
-			{
-				name: 'sameWidth',
-				enabled: true,
-				fn: ({ state }: any) => {
-					state.styles.popper.maxWidth = `${state.rects.reference.width}px`;
-					state.styles.popper.maxHeight = `320px`;
-					state.styles.popper.overflow = `auto`;
-				},
-				phase: 'beforeWrite',
-				requires: ['computeStyles'],
-				effect({ state }: any) {
-					state.elements.popper.style.width = `${state.elements.reference.offsetWidth}px`;
-				}
-			}
-		]
-	};
 
 	const submitForm: SubmitFunction = () => {
 		showLoader = true;
@@ -64,7 +45,7 @@
 			{#if showLoader}
 				<span><SpinIcon /></span>
 			{:else}
-				<button formaction="/app/projects/new?/addProject&color={selectedColor}&edit={edit}&id={project?.id}"
+				<button formaction="/app/projects?/addProject&color={selectedColor}&edit={edit}&id={project?.id}"
 					><CheckIcon /></button
 				>
 			{/if}
@@ -97,7 +78,7 @@
 				</ListboxButton>
 				<ListboxOptions
 					class="py-4 shadow-lg rounded-lg outline-none"
-					use={[[popperContent, popperOptions]]}
+					use={[[popperContent, sameWidthPopperOptions]]}
 				>
 					{#each colors as color}
 						<ListboxOption

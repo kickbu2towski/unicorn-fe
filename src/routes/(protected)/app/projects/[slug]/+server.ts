@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 
 export const DELETE: RequestHandler = async ({ locals, params }) => {
 	const session = await locals.validate();
-	const id = params.id;
+	const id = params.slug;
 
 	try {
 		if (!session) {

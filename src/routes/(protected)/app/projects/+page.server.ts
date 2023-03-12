@@ -1,6 +1,6 @@
 import { prisma } from '$lib/server/prisma';
-import { fail } from '@sveltejs/kit';
-import type { Actions } from './$types';
+import { ProjectSchema } from '$lib/zodSchemas';
+import { fail, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	addProject: async ({ request, url, locals }) => {
@@ -11,29 +11,36 @@ export const actions: Actions = {
 			const edit = url.searchParams.get('edit');
 			const projectId = url.searchParams.get('id');
 
-			if (!session || !name || !color || typeof color !== 'string' || typeof name !== 'string') {
+			if (!session) {
 				return fail(400);
 			}
 
-			if (edit === "false") {
+			const data = ProjectSchema.parse({
+				name,
+				color,
+				edit,
+				projectId
+			})
+
+			if (data.edit === "false") {
 				const project = await prisma.project.create({
 					data: {
-						color,
+						color: data.color,
 						user_id: session?.userId,
-						name
+						name: data.name,
 					}
 				});
 				return { success: true, projectId: project.id };
 			}
 
-			if (edit === "true" && projectId) {
+			if (data.edit === "true" && data.projectId) {
 				await prisma.project.update({
 					data: {
-						name,
-						color
+						name: data.name,
+						color: data.color,
 					},
 					where: {
-						id: Number(projectId)
+						id: Number(data.projectId)
 					}
 				});
 				return { success: true, projectId };

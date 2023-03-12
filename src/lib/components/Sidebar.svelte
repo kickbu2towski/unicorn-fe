@@ -9,6 +9,7 @@
     DisclosurePanel,
   } from "@rgossiaux/svelte-headlessui"; 
 	import { goto } from '$app/navigation';
+	import SettingsIcon from "$lib/icons/SettingsIcon.svelte";
 
   export let projects: any[]
   export let closePane: () => void
@@ -20,6 +21,12 @@
     { slug: 'filters-and-labels', name: 'Filters & Labels' },
   ]
 </script>
+
+<div class="px-4 py-2 mb-2 flex">
+  <a href="/app/settings" class="ml-auto">
+    <span class="text-lg"><SettingsIcon /></span>
+  </a>
+</div>
 
 <div>
   {#each views as view}
