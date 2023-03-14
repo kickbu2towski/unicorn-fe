@@ -4,7 +4,7 @@ import { AuthSchema } from '$lib/zodSchemas';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { ZodError } from 'zod'
 import { generateRandomString } from 'lucia-auth'
-import { sendMail } from '$lib/server/mail';
+import { sendMail, verifyEmailTemplate } from '$lib/server/mail';
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
@@ -46,7 +46,7 @@ export const actions: Actions = {
 			})
 
 			// send email
-			await sendMail(email, token)
+			await sendMail(email, verifyEmailTemplate(token))
       locals.setSession(session)
 		} catch(err) {
 		  if(err instanceof ZodError)	{

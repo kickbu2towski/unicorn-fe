@@ -1,8 +1,8 @@
 import { auth } from '$lib/server/lucia';
 import { AuthSchema } from '$lib/zodSchemas';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {

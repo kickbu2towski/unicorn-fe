@@ -32,7 +32,7 @@
 {#if data.project && !edit}
 	<div>
 		<header class="flex items-center justify-between">
-			<h3 class="font-semibold text-xl">{data.project.name}</h3>
+			<h3 class="font-semibold text-lg">{data.project.name}</h3>
 
 			<Popover>
 				<PopoverButton use={[popperRef]}>

@@ -1,21 +1,15 @@
+import { auth } from "$lib/server/lucia";
 import { prisma } from "$lib/server/prisma";
-import { redirect } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ locals }) => {
-  const session = await locals.validate()
-
-  if(!session) {
-    throw redirect(303, '/login')
-  }
- 
-  const todoKeywords = await prisma.todoKeywords.findMany({
-    where: {
-      user_id: session.userId
+export const actions: Actions = {
+  logout: async ({ locals }) => {
+    const session = await locals.validate()
+    if(!session) {
+      return fail(400)
     }
-  })
- 
-  return {
-    todoKeywords
+    await auth.invalidateSession(session.sessionId)
+    locals.setSession(null) 
   }
 }

@@ -1,6 +1,5 @@
-import { invalidateAll } from '$app/navigation';
 import { prisma } from '$lib/server/prisma';
-import { TodoKeywordsPayloadSchema, SettingsSchema, TodoKeywordsSchema } from '$lib/zodSchemas';
+import { TodoKeywordsPayloadSchema, SettingsSchema } from '$lib/zodSchemas';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
@@ -46,9 +45,9 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				)
 			);
 		}
-		return json({ status: 200, message: 'settings updated successfully' });
+
+		return json({ status: 200, message: 'settings updated successfully'});
 	} catch (err) {
-		console.log(err);
 		return json({ status: 500, message: 'internal server error' });
 	}
 };

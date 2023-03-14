@@ -44,7 +44,7 @@
 
 <Disclosure let:open class="mt-8">
   <DisclosureButton class="flex items-center justify-between w-full px-4">
-    <span class="font-bold">Projects</span>
+    <span class="font-semibold">Projects</span>
     <span class="flex items-center gap-4">
     <button on:click|stopPropagation={() => {
       closePane()

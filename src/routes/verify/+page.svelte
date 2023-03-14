@@ -26,7 +26,7 @@
 			{#if showLoader}
 				<span class="relative top-[1px]"><SpinIcon /></span>
 			{/if}
-			<span>{showLoader ? 'Verifying...' : 'Verify Email'}</span>
+			<span>{showLoader ? 'Activating...' : 'Activate account'}</span>
 		</button>
     {#if form?.invalidToken}
       <span class="text-red-500">{form?.invalidToken}</span>

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
 	import TodoKeywords from '$lib/components/TodoKeywords.svelte';
+	import LogoutIcon from '$lib/icons/LogoutIcon.svelte';
 	import SpinIcon from '$lib/icons/SpinIcon.svelte';
-	import { onMount } from 'svelte';
+	import { getUser } from '@lucia-auth/sveltekit/client';
 	export let data;
-	$: console.log('server state: ', data.todoKeywords);
 
 	// this feels that I am doing something which I shouldn't :)
 	let todoKeywords = JSON.parse(JSON.stringify(data.todoKeywords));
@@ -13,20 +12,21 @@
 	let showLoader = false;
 	let deletedIds: number[] = [];
 
+	const user = getUser()
+
+
 	async function saveChanges() {
+		// TODO: after updating the server state, need to sync
+		// that state with local state, figure it out
 		try {
 			showLoader = true;
-			const res = await fetch('/app/settings', {
+			await fetch('/app/settings', {
 				method: 'post',
 				body: JSON.stringify({
 					todoKeywords,
 					deletedIds
 				})
 			});
-			if (res.ok) {
-				await invalidateAll();
-        console.log(data)
-			}
 		} finally {
 			showLoader = false;
 		}
@@ -51,3 +51,13 @@
 </div>
 
 <TodoKeywords bind:todoKeywords bind:deletedIds />
+
+<form method="POST" action="?/logout">
+	<button class="mt-8 flex gap-3 items-baseline">
+		<span class="text-lg relative top-[5px]"><LogoutIcon /></span>	
+		<span class="flex flex-col items-start gap-1">
+			<span>Logout</span>
+			<span class="text-slate-500">{$user?.email}</span>	
+		</span>
+	</button>
+</form>
